@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300&display=swap');
+@import url('react-toastify/dist/ReactToastify.css');
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Merriweather', serif;
+    box-sizing: border-box;
+}
+
+p{
+    font-family: 'Roboto Slab', serif;
+}
+
+.selectBar{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.selectBar label{
+    font-size: 1.2rem;
+    color: #231c1cf4;
+}
+
+.selectBar select{
+    outline: none;
+    padding: 5px 10px;
+    font-size: 1rem;
+}
+
+@media (max-width: 1408px) {
+    .selectBar{
+        align-items: normal;
+        flex-direction: column;
+        gap:.4rem;
+    }
+    .selectBar label{
+        font-size: 1rem;
+        color: #231c1cf4;
+    } 
+    .selectBar select{
+        outline: none;
+        padding: 5px 5px;
+        font-size: 1rem;
+    }
+}
