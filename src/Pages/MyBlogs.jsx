@@ -10,17 +10,17 @@ const MyBlogs = () => {
   const navigate = useNavigate();
   const { setUserInfo } = useContext(UserContext);
   const [posts, setPosts] = useState([]);
-  const setUser = async () => {
-    if (!localStorage.getItem("blog-app-user")) {
-      navigate("/login");
-    } else {
-      const getuser = await JSON.parse(localStorage.getItem("blog-app-user"));
-      console.log("in json parse");
-      setCurrentUser(getuser);
-      setUserInfo(getuser);
-    }
-  };
   useEffect(() => {
+    const setUser = async () => {
+      if (!localStorage.getItem("blog-app-user")) {
+        navigate("/login");
+      } else {
+        const getuser = await JSON.parse(localStorage.getItem("blog-app-user"));
+        console.log("in json parse");
+        setCurrentUser(getuser);
+        setUserInfo(getuser);
+      }
+    };
     setUser();
   }, []);
 
