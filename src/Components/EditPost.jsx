@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -68,9 +68,9 @@ const EditPost = () => {
   };
 
   const validatInput = () => {
-    if (title.length < 120 || title.length > 150) {
+    if (title.length < 50 || title.length > 150) {
       toast.error("Title length:", toastOptions);
-    } else if (summary.length < 250 || summary.length > 400) {
+    } else if (summary.length < 150 || summary.length > 400) {
       toast.error("Summary length:", toastOptions);
     } else {
       return true;
@@ -114,14 +114,14 @@ const EditPost = () => {
             type="text"
             value={title}
             onChange={(e) => {
-              if (e.target.value.length < 120 || e.target.value.length > 150) {
+              if (e.target.value.length < 50 || e.target.value.length > 150) {
                 setValidTitle(false);
               } else {
                 setValidTitle(true);
               }
               setTitle(e.target.value);
             }}
-            placeholder="Title of Blog :min 150 words and max 250 words required"
+            placeholder="Title of Blog :min 50 words and max 250 words required"
             className={`summaryText ${validTitle ? "validInput" : ""} ${
               validTitle === false ? "invalidInput" : ""
             }`}
@@ -132,7 +132,7 @@ const EditPost = () => {
             type="text"
             value={summary}
             onChange={(e) => {
-              if (e.target.value.length < 250 || e.target.value.length > 400) {
+              if (e.target.value.length < 150 || e.target.value.length > 400) {
                 setValidSummary(false);
               } else {
                 setValidSummary(true);

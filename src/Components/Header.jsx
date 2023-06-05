@@ -1,14 +1,22 @@
 import React, { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { NavLink, Outlet } from "react-router-dom";
-import { profileinfoRoute, logoutRoute } from "../utills/APIroutes";
+import { profileinfoRoute } from "../utills/APIroutes";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext";
+import {toast } from 'react-toastify';
 
 const Header = () => {
   const navigate = useNavigate();
   const { setUserInfo, userInfo } = useContext(UserContext);
+
+  const toastOptions = {
+    position: "bottom-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    newestOnTop: false,
+  };
 
   useEffect(() => {
     isUser();
@@ -25,20 +33,9 @@ const Header = () => {
   };
 
   const logout = () => {
-    axios
-      .post(
-        logoutRoute,
-        {},
-        {
-          withCredentials: true,
-          credentials: "include",
-        }
-      )
-      .then(() => {
-        setUserInfo(null);
-        navigate("/login");
-      })
-      .catch((err) => console.log(err));
+    localStorage.clear();
+    navigate('/login');
+    toast.success("User Logged Out Successfully",toastOptions);
   };
 
   const username = userInfo?.email;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../assets/blogLogo.png";
 import Button from "@mui/material/Button";
@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const { userInfo, setUserInfo } = useContext(UserContext);
@@ -16,6 +17,17 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  useEffect(()=>{
+    const setUser = async () => {
+      if (localStorage.getItem("blog-app-user")) {
+        navigate("/");
+      }else{
+        setUserInfo({})
+      }
+    };
+    setUser();
+  },[])
 
   let name, value;
   const handleChange = (e) => {
@@ -41,19 +53,16 @@ const Login = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     const res = await axios.post(loginRoute, user, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
       withCredentials: true,
       credentials: "include",
     });
     if (res.data.success !== false) {
-      toast.success("User found with these credentials", toastOptions);
-
-      const getUserData = async () => {
-        const data = await res.data;
-        setUserInfo(data);
-      };
-      getUserData();
+      toast.success("User founded with these credentials", toastOptions);
+      const data = res.data;
+      const userData = JSON.stringify(data);
+      localStorage.setItem("blog-app-user", userData);
+      setUserInfo(data)
+      console.log("setinfo is",userInfo)
       resetForm();
       navigate("/");
     } else {
@@ -61,9 +70,6 @@ const Login = () => {
     }
   };
 
-  if(userInfo?.id){
-    navigate('/')
-  }
 
   return (
     <>
@@ -201,55 +207,55 @@ const Container = styled.div`
         }
       }
     }
-    @media (max-width:500px){
+    @media (max-width: 500px) {
       grid-template-rows: 25% 75%;
-        width: 80%;
-        .logoSection {
-          .img {
-            img {
-              height: 5rem;
-            }
-          }
-          p {
-            font-size: 1.5rem;
-          }
-          span {
-            font-size: 1.3rem;
+      width: 80%;
+      .logoSection {
+        .img {
+          img {
+            height: 5rem;
           }
         }
-        form{
-          width: 280px;
-          .items{
-            width: 90%;
-            input{
-              width: 100%;
-            }
+        p {
+          font-size: 1.5rem;
+        }
+        span {
+          font-size: 1.3rem;
+        }
+      }
+      form {
+        width: 280px;
+        .items {
+          width: 90%;
+          input {
+            width: 100%;
           }
         }
       }
-      @media (max-width:390px){
-        width: 90%;
-        form{
-          width: 270px;
-          .items{
-            width: 85%;
-            label{
-              font-size:.9rem;
-            }
-            input{
-              width: 100%;
-              padding: 5px 8px;
-            }
+    }
+    @media (max-width: 390px) {
+      width: 90%;
+      form {
+        width: 270px;
+        .items {
+          width: 85%;
+          label {
+            font-size: 0.9rem;
           }
-          .btns {
-            button {
-              margin: 0 7px;
-              padding: 4px 5px;
-              font-size:1rem;
-            }
+          input {
+            width: 100%;
+            padding: 5px 8px;
+          }
+        }
+        .btns {
+          button {
+            margin: 0 7px;
+            padding: 4px 5px;
+            font-size: 1rem;
           }
         }
       }
+    }
   }
 `;
 export default Login;

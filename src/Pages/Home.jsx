@@ -8,18 +8,29 @@ import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const { userInfo } = useContext(UserContext);
-  const navigate = useNavigate()
+  const { userInfo , setUserInfo} = useContext(UserContext);
+  const navigate = useNavigate();
+
   useEffect(() => {
+    const setUser = async () => {
+      if (!localStorage.getItem("blog-app-user")) {
+        navigate("/login");
+      }else{
+        const getuser = JSON.parse(localStorage.getItem("blog-app-user"));
+        setUserInfo(getuser);
+      }
+    };
+    setUser();
+
     const getAllPosts = async () => {
       const data = await axios.get(getallposts);
       setPosts(data.data);
     };
     getAllPosts();
   }, []);
-  if(!userInfo.id){
-    navigate('/login')
-  }
+
+  // userInfo?.id?console.log(""):navigate('/login')
+
   return (
     <>
       <Container>

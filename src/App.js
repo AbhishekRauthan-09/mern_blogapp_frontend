@@ -10,6 +10,7 @@ import CreatePost from './Pages/CreatePost'
 import ViewPost from "./Components/ViewPost";
 import EditPost from "./Components/EditPost";
 import MyBlogs from "./Pages/MyBlogs";
+import Notfound from "./Components/Notfound";
 const App = () => {
   return (
     <>
@@ -23,6 +24,7 @@ const App = () => {
             <Route path="/post/:id" element={<ViewPost />} />
             <Route path="/editpost" element={<EditPost />} />
             <Route path="/myblogs" element={<MyBlogs />} />
+            <Route path="*" element={<Notfound/>} />
           </Route>
         </Routes>
         <ToastContainer />

@@ -1,4 +1,5 @@
-export const host = "https://blog-app-88lo.onrender.com"
+// export const host = "http://localhost:5000"
+export const host = "https://bloggerappserver.onrender.com"
 
 export const signupRoute = `${host}/signup`
 export const loginRoute = `${host}/login`

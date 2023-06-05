@@ -146,10 +146,6 @@ const Container = styled.div`
   @media (max-width: 850px) {
     height: 230px;
     .post-content {
-      display:flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
       h2 {
         font-size: 1.1rem;
       }

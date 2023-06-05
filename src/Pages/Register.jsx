@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../assets/blogLogo.png";
 import Button from "@mui/material/Button";
@@ -6,12 +6,10 @@ import { NavLink, useNavigate, useNavigation } from "react-router-dom";
 import axios from "axios";
 import { signupRoute } from "../utills/APIroutes";
 import { toast } from "react-toastify";
-import { UserContext } from "../userContext";
 
 
 const Register = () => {
   const navigate = useNavigate();
-  const {userInfo} = useContext(UserContext)
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -19,9 +17,16 @@ const Register = () => {
     age:""
   });
 
-  if(userInfo?.id){
-    navigate('/')
-  }
+  useEffect(()=>{
+    const setUser = async () => {
+      if (localStorage.getItem("blog-app-user")) {
+        navigate("/");
+      }
+    };
+    setUser();
+  },[])
+
+
 
   let name, value;
   const handleChange = (e) => {
