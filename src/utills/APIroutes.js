@@ -8,5 +8,4 @@ export const logoutRoute = `${host}/logout`
 export const createPostRoute = `${host}/post`
 export const getallposts = `${host}/getallposts`
 export const viewpostRoute = `${host}/post/`
-export const deleteRoute = `${host}/deletepost`
 export const myblogsRoute = `${host}/myblogs`
